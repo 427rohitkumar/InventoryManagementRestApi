@@ -1,11 +1,15 @@
 package com.inventry.inventry.Model;
 
-import java.sql.Date;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -14,11 +18,24 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int catId;
     private String catName;
+    private String catImage;
+
+    @Lob
+    private String catDesc;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "dd-MM-yyyy")
+    private Date categoryCreationDate;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "dd-MM-yyyy")
     private Date updated_at;
 
     @ManyToOne
     @JoinColumn(name = "userId")
     private User userId;
+
+    public Category(){
+        this.categoryCreationDate=new Date();
+    }
 
     // Getters and Setters
     public int getCatId() {
@@ -52,4 +69,34 @@ public class Category {
     public void setUserId(User userId) {
         this.userId = userId;
     }
+
+    public Date getCategoryCreationDate() {
+        return categoryCreationDate;
+    }
+
+    public void setCategoryCreationDate(Date categoryCreationDate) {
+        this.categoryCreationDate = categoryCreationDate;
+    }
+
+    public String getCatImage() {
+        return catImage;
+    }
+
+    public void setCatImage(String catImage) {
+        this.catImage = catImage;
+    }
+
+    public String getCatDesc() {
+        return catDesc;
+    }
+
+    public void setCatDesc(String catDesc) {
+        this.catDesc = catDesc;
+    }
+
+    
+
+    
+
+    
 }

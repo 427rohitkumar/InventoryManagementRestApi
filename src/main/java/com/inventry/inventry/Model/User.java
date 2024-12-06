@@ -4,6 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 
 @Entity
@@ -18,10 +23,19 @@ public class User {
     private String userName;
     private String password;
     private String role;
+
+    @JsonFormat(shape =JsonFormat.Shape.STRING,pattern = "dd-MM-yyyy")
+    private Date accountCreationDate;
+
+    @Column(nullable = true)
+    private String profileImage;
     
     @Column(nullable = false)// Ensure this is not null
     private boolean accountActive=true; //setting default value is true of Acount active
 
+    public User(){
+        this.accountCreationDate=new Date();
+    }
     // Getters and Setters
     public int getUserId() {
         return userId;
@@ -70,6 +84,26 @@ public class User {
     public void setAccountActive(boolean accountActive) {
         this.accountActive = accountActive;
     }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public Date getAccountCreationDate() {
+        return accountCreationDate;
+    }
+
+    public void setAccountCreationDate(Date accountCreationDate) {
+        this.accountCreationDate = accountCreationDate;
+    }
+
+    
+
+    
 
     
 
